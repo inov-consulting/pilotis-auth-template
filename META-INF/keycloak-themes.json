@@ -1,0 +1,8 @@
+{
+  "themes": [
+    {
+      "name": "pilotis",
+      "types": ["login", "account", "email"]
+    }
+  ]
+}

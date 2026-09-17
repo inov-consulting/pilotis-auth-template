@@ -1,0 +1,20 @@
+stages:
+  - deploy
+
+variables:
+  THEME_PATH: "/home/debian/.qualifications/keycloak/themes/wenze_keycloak_ui"
+  KEYCLOAK_CONTAINER_NAME: "keycloak_qualification"
+
+deploy:
+  stage: deploy
+  script:
+    # Copier l'intégralité du dépôt (ou seulement le dossier contenant le thème) vers le VPS
+    - sudo rsync -avz ./ $THEME_PATH/
+    # Copier le thème dans le container Keycloak avec sudo
+    - sudo docker cp $THEME_PATH/. $KEYCLOAK_CONTAINER_NAME:/opt/keycloak/themes/
+  only:
+    - main  # Déployer uniquement sur la branche principale
+  environment: qualifications
+  tags:
+    - shell_runner
+  
